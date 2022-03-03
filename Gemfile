@@ -51,5 +51,7 @@ end
 gem 'active_model_otp', '~> 2.3'
 gem 'annotate', '~> 3.2'
 gem 'config', '~> 4.0'
+gem 'firebase_id_token', '~> 2.4'
 gem 'rspec-rails', '~> 5.1'
 gem 'webpush', '~> 1.1'
+
