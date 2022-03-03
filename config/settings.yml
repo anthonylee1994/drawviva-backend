@@ -1,0 +1,4 @@
+webpush:
+  subject: 'mailto: <info@tigodonline.com>'
+  public_key: 'BJIqpF5XQm25HZ4BCx7isd7IpbBX_MdD4vEuw8q9rNrPrhEJswz9s9Mf7BuC89Pn1c1NXMbjm2qvQXYeQNU710k'
+  private_key: 'KPogeSBL68OGYOIYzIM2s1q-hHE3fct3FNFMVEHywBc'
