@@ -21,6 +21,10 @@ class Draw < ApplicationRecord
   has_many :participants, through: :participant_user_draws, source: :user
   has_many :draw_items, dependent: :destroy
 
+  def random_pick!
+    draw_items[RandomService.random_number(draw_items.count)]
+  end
+
   def add_participant!(user)
     user_draws.create!(user:, role: 'participant')
   end
