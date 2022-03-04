@@ -21,7 +21,9 @@
 require 'rails_helper'
 
 RSpec.describe PushNotificationSubscription, type: :model do
+  let(:user) { User.create!(email: 'asshole@aaa.com', display_name: 'asshole') }
+
   example 'create user build empty subscription' do
-    expect(User.create!(username: 'asshole').push_notification_subscription).not_to be_nil
+    expect(user.push_notification_subscription).not_to be_nil
   end
 end
