@@ -15,6 +15,8 @@
 #
 class User < ApplicationRecord
   has_one :push_notification_subscription, dependent: :destroy
+  has_many :user_draws, class_name: 'UserDraw', dependent: :destroy
+  has_many :draws, class_name: 'Draw', through: :user_draws, source: :draw
 
   validates :email, presence: true, uniqueness: true, allow_blank: false
 
