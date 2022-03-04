@@ -1,6 +1,8 @@
 webpush:
-  subject: 'mailto: <info@tigodonline.com>'
-  public_key: 'BJIqpF5XQm25HZ4BCx7isd7IpbBX_MdD4vEuw8q9rNrPrhEJswz9s9Mf7BuC89Pn1c1NXMbjm2qvQXYeQNU710k'
-  private_key: 'KPogeSBL68OGYOIYzIM2s1q-hHE3fct3FNFMVEHywBc'
+  subject: "mailto: <info@tigodonline.com>"
+  public_key: "BJIqpF5XQm25HZ4BCx7isd7IpbBX_MdD4vEuw8q9rNrPrhEJswz9s9Mf7BuC89Pn1c1NXMbjm2qvQXYeQNU710k"
+  private_key: "KPogeSBL68OGYOIYzIM2s1q-hHE3fct3FNFMVEHywBc"
 firebase:
-  api_key: 'AIzaSyANyQPEvtsOZcknrnev4gIqCwDuyeyEYVI'
+  api_key: "AIzaSyANyQPEvtsOZcknrnev4gIqCwDuyeyEYVI"
+auth:
+  hmac_secret: "6c0bcad267795cbd086c502f2acebb34122ec2c2256daac886583d5ad33dfdb75581efd2d9d36a8c8056dc22ae5709d1f93cc6ef68623d146f39e8281f8ad5d8"

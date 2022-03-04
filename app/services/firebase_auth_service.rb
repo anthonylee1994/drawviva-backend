@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 class FirebaseAuthService
+  class InvalidToken < StandardError; end
+
   def self.verify!(token)
     if Rails.env.test?
+      raise InvalidToken if token != 'token'
+
       return { 'kind' => 'identitytoolkit#GetAccountInfoResponse',
                'users' =>
                  [{ 'localId' => 'Igus3BSpFScsGepxRwmVHV53Qxy2',
@@ -30,7 +34,7 @@ class FirebaseAuthService
     if response.code == 200
       JSON.parse(response.body).deep_transform_keys! { |key| key.underscore.to_sym }
     else
-      raise response.body
+      raise InvalidToken
     end
   end
 end
