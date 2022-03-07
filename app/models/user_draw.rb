@@ -20,8 +20,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class UserDraw < ApplicationRecord
-  belongs_to :user
-  belongs_to :draw
+  belongs_to :user, inverse_of: :user_draws
+  belongs_to :draw, inverse_of: :user_draws
 
   enum role: { participant: 0, admin: 1 }
 
@@ -41,7 +41,7 @@ class UserDraw < ApplicationRecord
   end
 
   def set_first_user_as_admin
-    draw.user_draws.first&.update!(role: 'admin')
+    draw.reload.user_draws.first&.update!(role: 'admin')
   end
 
   def destroy_draw

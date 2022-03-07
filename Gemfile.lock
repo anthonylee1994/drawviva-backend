@@ -184,6 +184,8 @@ GEM
       pry (>= 0.10.4)
     puma (5.6.2)
       nio4r (~> 2.0)
+    pundit (2.2.0)
+      activesupport (>= 3.0.0)
     racc (1.6.0)
     rack (2.2.3)
     rack-cors (1.1.1)
@@ -275,6 +277,7 @@ DEPENDENCIES
   pg (~> 1.1)
   pry-rails (~> 0.3.9)
   puma (~> 5.0)
+  pundit (~> 2.2)
   rack-cors
   rails (~> 7.0.2, >= 7.0.2.2)
   rest-client (~> 2.1)

@@ -35,6 +35,6 @@ RSpec.describe DrawItem, type: :model do
     draw.draw_items.create!(name: 'BBB')
     draw.draw_items.create!(name: 'CCC')
 
-    expect(draw.random_pick!).not_to be_nil
+    expect(draw.random_pick!(anthony)).not_to be_nil
   end
 end
