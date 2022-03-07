@@ -9,7 +9,7 @@ RSpec.describe 'Draws', type: :request do
   let(:ken_auth_headers) { { 'Authorization': "Bearer #{ken.token}" } }
   let(:draw) { anthony.draws.create!(name: 'Draw 1') }
 
-  example 'anthony should list draw' do
+  example 'Anthony should list draw' do
     draw
     get '/draws', headers: anthony_auth_headers
     expect(response).to have_http_status(:ok)
@@ -18,7 +18,7 @@ RSpec.describe 'Draws', type: :request do
     expect(json_body.first['name']).to eq(draw.name)
   end
 
-  example 'anthony should create draw' do
+  example 'Anthony should create draw' do
     post '/draws', params: { draw: { name: 'Draw 1' } }, headers: anthony_auth_headers
     expect(response).to have_http_status(:created)
     json_body = JSON.parse(response.body)
@@ -30,20 +30,20 @@ RSpec.describe 'Draws', type: :request do
     expect(last_draw.participants).to eq []
   end
 
-  example 'anthony should update draw' do
+  example 'Anthony should update draw' do
     put "/draws/#{draw.id}", params: { draw: { name: 'Hello' } }, headers: anthony_auth_headers
     expect(response).to have_http_status(:no_content)
     expect(draw.reload.name).to eq('Hello')
   end
 
-  example 'keb should not update draw' do
+  example 'Ken should not update draw' do
     expect do
       draw.add_participant!(ken)
       put "/draws/#{draw.id}", params: { draw: { name: 'Hello' } }, headers: ken_auth_headers
     end.to raise_error( Pundit::NotAuthorizedError)
   end
 
-  example 'keb should update draw, after anthony quit' do
+  example 'Ken should update draw, after anthony quit' do
     draw.add_participant!(ken)
     draw.kick_user!(anthony)
     put "/draws/#{draw.id}", params: { draw: { name: 'Hello' } }, headers: ken_auth_headers
@@ -51,7 +51,7 @@ RSpec.describe 'Draws', type: :request do
     expect(draw.reload.name).to eq('Hello')
   end
 
-  example 'anthony should destroy draw' do
+  example 'Anthony should destroy draw' do
     delete "/draws/#{draw.id}", headers: anthony_auth_headers
     expect(response).to have_http_status(:no_content)
     expect(Draw.count).to eq(0)
