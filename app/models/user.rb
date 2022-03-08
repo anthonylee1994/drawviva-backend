@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -16,12 +18,14 @@
 class User < ApplicationRecord
   has_one :push_notification_subscription, dependent: :destroy
   has_many :user_draws, class_name: 'UserDraw', foreign_key: :user_id, inverse_of: :user, dependent: :destroy
-  has_many :admin_user_draws, -> {
-                                where(role: 'admin')
-                              }, class_name: 'UserDraw', foreign_key: :user_id, inverse_of: :user, dependent: :destroy
-  has_many :participant_user_draws, -> {
-                                      where(role: 'participant')
-                                    }, class_name: 'UserDraw', foreign_key: :user_id, inverse_of: :user, dependent: :destroy
+
+  has_many :admin_user_draws, lambda {
+    where(role: 'admin')
+  }, class_name: 'UserDraw', foreign_key: :user_id, inverse_of: :user, dependent: :destroy
+
+  has_many :participant_user_draws, lambda {
+    where(role: 'participant')
+  }, class_name: 'UserDraw', foreign_key: :user_id, inverse_of: :user, dependent: :destroy
 
   has_many :draws, class_name: 'Draw', through: :user_draws, source: :draw, inverse_of: :users
   has_many :admin_draws, class_name: 'Draw', through: :admin_user_draws, source: :draw, inverse_of: :users
@@ -30,6 +34,8 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, allow_blank: false
 
   before_validation :init_subscription, on: :create
+
+  accepts_nested_attributes_for :push_notification_subscription, update_only: true
 
   def token
     JwtService.encode(user_id: id)
