@@ -16,8 +16,12 @@
 class User < ApplicationRecord
   has_one :push_notification_subscription, dependent: :destroy
   has_many :user_draws, class_name: 'UserDraw', foreign_key: :user_id, inverse_of: :user, dependent: :destroy
-  has_many :admin_user_draws, -> { where(role: 'admin') }, class_name: 'UserDraw', foreign_key: :user_id, inverse_of: :user, dependent: :destroy
-  has_many :participant_user_draws, -> { where(role: 'participant') }, class_name: 'UserDraw', foreign_key: :user_id, inverse_of: :user, dependent: :destroy
+  has_many :admin_user_draws, -> {
+                                where(role: 'admin')
+                              }, class_name: 'UserDraw', foreign_key: :user_id, inverse_of: :user, dependent: :destroy
+  has_many :participant_user_draws, -> {
+                                      where(role: 'participant')
+                                    }, class_name: 'UserDraw', foreign_key: :user_id, inverse_of: :user, dependent: :destroy
 
   has_many :draws, class_name: 'Draw', through: :user_draws, source: :draw, inverse_of: :users
   has_many :admin_draws, class_name: 'Draw', through: :admin_user_draws, source: :draw, inverse_of: :users

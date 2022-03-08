@@ -29,7 +29,6 @@ RSpec.describe DrawItem, type: :model do
     expect(draw_item.name).to eq 'New Draw Item'
   end
 
-
   example 'make a draw' do
     draw.draw_items.create!(name: 'AAA')
     draw.draw_items.create!(name: 'BBB')

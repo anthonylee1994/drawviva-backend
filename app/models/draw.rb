@@ -14,8 +14,12 @@
 #
 class Draw < ApplicationRecord
   has_many :user_draws, class_name: 'UserDraw', inverse_of: :draw, dependent: :destroy
-  has_many :admin_user_draws, -> { where(role: 'admin') }, class_name: 'UserDraw', inverse_of: :draw, dependent: :destroy
-  has_many :participant_user_draws, -> { where(role: 'participant') }, class_name: 'UserDraw', inverse_of: :draw, dependent: :destroy
+  has_many :admin_user_draws, -> {
+                                where(role: 'admin')
+                              }, class_name: 'UserDraw', inverse_of: :draw, dependent: :destroy
+  has_many :participant_user_draws, -> {
+                                      where(role: 'participant')
+                                    }, class_name: 'UserDraw', inverse_of: :draw, dependent: :destroy
   has_many :users, through: :user_draws, source: :user, inverse_of: :draws
   has_many :admins, through: :admin_user_draws, source: :user, inverse_of: :draws
   has_many :participants, through: :participant_user_draws, source: :user, inverse_of: :draws

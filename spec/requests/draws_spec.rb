@@ -10,12 +10,16 @@ RSpec.describe 'Draws', type: :request do
   let(:draw) { anthony.draws.create!(name: 'Draw 1') }
 
   example 'Anthony should list draw' do
-    draw
+    draw.draw_items.create!(name: 'Item 1')
+    draw.draw_items.create!(name: 'Item 2')
+    draw.draw_items.create!(name: 'Item 3')
     get '/draws', headers: anthony_auth_headers
     expect(response).to have_http_status(:ok)
     json_body = JSON.parse(response.body)
     expect(json_body.first['id']).to eq(draw.id)
     expect(json_body.first['name']).to eq(draw.name)
+    expect(json_body.first.dig('user_draw', 'role')).to eq('admin')
+    expect(json_body.first['draw_items'].count).to eq(3)
   end
 
   example 'Anthony should create draw' do
@@ -40,7 +44,7 @@ RSpec.describe 'Draws', type: :request do
     expect do
       draw.add_participant!(ken)
       put "/draws/#{draw.id}", params: { draw: { name: 'Hello' } }, headers: ken_auth_headers
-    end.to raise_error( Pundit::NotAuthorizedError)
+    end.to raise_error(Pundit::NotAuthorizedError)
   end
 
   example 'Ken should update draw, after anthony quit' do

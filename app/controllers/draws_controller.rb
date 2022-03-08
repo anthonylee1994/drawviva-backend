@@ -1,6 +1,8 @@
 class DrawsController < ApplicationController
+  before_action :set_draw, only: %i[update destroy]
+
   def index
-    @draws = current_user.draws
+    @draws = current_user.draws.includes(:user_draws, :draw_items)
 
     render json: @draws, status: :ok
   end
@@ -16,7 +18,6 @@ class DrawsController < ApplicationController
   end
 
   def update
-    @draw = Draw.find(params[:id])
     authorize @draw
 
     if @draw.update(draw_params)
@@ -27,11 +28,17 @@ class DrawsController < ApplicationController
   end
 
   def destroy
-    @draw = current_user.admin_draws.find(params[:id])
     authorize @draw
-    @draw.destroy
 
-    head :no_content
+    if @draw.destroy
+      head :no_content
+    else
+      render json: @draw.errors, status: :unprocessable_entity
+    end
+  end
+
+  def set_draw
+    @draw = Draw.find(params[:id])
   end
 
   def draw_params

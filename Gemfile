@@ -49,12 +49,15 @@ group :development do
 end
 
 gem 'active_model_otp', '~> 2.3'
+gem 'active_model_serializers', '~> 0.10.13'
 gem 'annotate', '~> 3.2'
 gem 'config', '~> 4.0'
 gem 'firebase_id_token', '~> 2.4'
 gem 'jwt', '~> 2.3'
 gem 'pry-rails', '~> 0.3.9'
-gem "pundit", "~> 2.2"
+gem 'pundit', '~> 2.2'
 gem 'rest-client', '~> 2.1'
 gem 'rspec-rails', '~> 5.1'
 gem 'webpush', '~> 1.1'
+
+gem "rubocop", "~> 1.25"

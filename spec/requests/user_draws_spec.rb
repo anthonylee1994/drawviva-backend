@@ -12,7 +12,8 @@ RSpec.describe 'UserDraws', type: :request do
   let(:draw) { anthony.draws.create!(name: 'Draw 1') }
 
   example 'Anthony should create user draw' do
-    post '/user_draws', params: { user_draw: { user_id: ken.id, draw_id: draw.id, role: 'participant' } }, headers: anthony_auth_headers
+    post '/user_draws', params: { user_draw: { user_id: ken.id, draw_id: draw.id, role: 'participant' } },
+                        headers: anthony_auth_headers
     json_body = JSON.parse(response.body)
     expect(response).to have_http_status(:created)
     expect(json_body).not_to be_nil

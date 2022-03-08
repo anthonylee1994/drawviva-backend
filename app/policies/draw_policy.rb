@@ -8,11 +8,19 @@ class DrawPolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin_draws.include? record
+    admin?
   end
 
   def destroy?
-    update?
+    admin?
+  end
+
+  def draw?
+    admin? && record.draw_items.present?
+  end
+
+  def admin?
+    user.admin_draws.include? record
   end
 
   class Scope < Scope
