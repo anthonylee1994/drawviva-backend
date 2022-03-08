@@ -15,22 +15,4 @@ class AuthController < ApplicationController
   rescue FirebaseAuthService::InvalidToken => e
     render json: { error: e.message }, status: :unauthorized
   end
-
-  def me
-    render json: current_user, status: :ok
-  end
-
-  def update
-    if current_user.update(user_params)
-      head :no_content
-    else
-      render json: current_user.errors, status: :unprocessable_entity
-    end
-  end
-
-  private
-
-  def user_params
-    params.require(:user).permit(push_notification_subscription_attributes: %i[auth endpoint p256dh])
-  end
 end

@@ -2,8 +2,10 @@
 
 Rails.application.routes.draw do
   post '/login', to: 'auth#login'
-  get '/me', to: 'auth#me'
-  put '/me', to: 'auth#update'
+
+  get '/me', to: 'users#me'
+  put '/me', to: 'users#update'
+  get '/users', to: 'users#index'
 
   resources :draws do
     resources :draw_items, only: %i[create]

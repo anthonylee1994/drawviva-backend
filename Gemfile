@@ -56,8 +56,8 @@ gem 'firebase_id_token', '~> 2.4'
 gem 'jwt', '~> 2.3'
 gem 'pry-rails', '~> 0.3.9'
 gem 'pundit', '~> 2.2'
+gem 'ransack', '~> 2.5'
 gem 'rest-client', '~> 2.1'
 gem 'rspec-rails', '~> 5.1'
+gem 'rubocop', '~> 1.25'
 gem 'webpush', '~> 1.1'
-
-gem "rubocop", "~> 1.25"
