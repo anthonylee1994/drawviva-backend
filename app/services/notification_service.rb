@@ -1,7 +1,7 @@
 class NotificationService
   def self.send(subscription, message)
     Webpush.payload_send(
-      message:,
+      message: message.to_json,
       endpoint: subscription.endpoint,
       p256dh: subscription.p256dh,
       auth: subscription.auth,

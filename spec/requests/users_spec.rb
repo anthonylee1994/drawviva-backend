@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Users', type: :request do
   let(:anthony) { User.create!(email: 'hososlch@gmail.com', display_name: 'Anthony') }
 
-  example 'list users', focus: true do
+  example 'list users' do
     anthony
     get '/users', headers: { Authorization: "Bearer #{anthony.token}" }
     json_body = JSON.parse(response.body)

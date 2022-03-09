@@ -20,4 +20,8 @@
 #
 class PushNotificationSubscription < ApplicationRecord
   belongs_to :user
+
+  def receive!(message)
+    NotificationService.send(self, message)
+  end
 end

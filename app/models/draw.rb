@@ -29,7 +29,7 @@ class Draw < ApplicationRecord
     draw_item = draw_items[RandomService.random_number(draw_items.count)]
     users.where.not(id: current_user.id).each do |user|
       if user.subscription.present?
-        NotificationService.send(user.subscription, "#{current_user.display_name} 已抽出 「#{draw_item.name}」！")
+        user.subscription.receive!(title: "秒抽「#{name}」", message: "#{current_user.display_name} 已抽出 「#{draw_item.name}」！")
       end
     end
     draw_item
