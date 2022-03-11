@@ -24,4 +24,8 @@ class PushNotificationSubscription < ApplicationRecord
   def receive!(message)
     NotificationService.send(self, message)
   end
+
+  def receivable?
+    auth && endpoint && p256dh
+  end
 end

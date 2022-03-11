@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: draws
@@ -13,24 +15,32 @@
 #  index_draws_on_name  (name)
 #
 class Draw < ApplicationRecord
-  has_many :user_draws, class_name: 'UserDraw', inverse_of: :draw, dependent: :destroy
-  has_many :admin_user_draws, -> {
-                                where(role: 'admin')
-                              }, class_name: 'UserDraw', inverse_of: :draw, dependent: :destroy
-  has_many :participant_user_draws, -> {
-                                      where(role: 'participant')
-                                    }, class_name: 'UserDraw', inverse_of: :draw, dependent: :destroy
+  has_many :user_draws, -> { order(created_at: :asc) }, class_name: 'UserDraw', inverse_of: :draw, dependent: :destroy
+  has_many :admin_user_draws, lambda {
+    where(role: 'admin')
+  }, class_name: 'UserDraw', inverse_of: :draw, dependent: :destroy
+  has_many :participant_user_draws, lambda {
+    where(role: 'participant')
+  }, class_name: 'UserDraw', inverse_of: :draw, dependent: :destroy
   has_many :users, through: :user_draws, source: :user, inverse_of: :draws
   has_many :admins, through: :admin_user_draws, source: :user, inverse_of: :draws
   has_many :participants, through: :participant_user_draws, source: :user, inverse_of: :draws
-  has_many :draw_items, dependent: :destroy
+  has_many :draw_items, -> { order(created_at: :asc) }, dependent: :destroy
 
+  validates :name, presence: true, allow_blank: false
+
+  # @param [User] current_user
+  # @return [DrawItem]
   def random_pick!(current_user)
     draw_item = draw_items[RandomService.random_number(draw_items.count)]
-    users.where.not(id: current_user.id).each do |user|
-      if user.subscription.present?
-        user.subscription.receive!(title: "秒抽「#{name}」", message: "#{current_user.display_name} 已抽出 「#{draw_item.name}」！")
-      end
+    users.each do |user|
+      next unless user.push_notification_subscription.receivable?
+
+      user.push_notification_subscription.receive!(
+        title: "秒抽「#{name}」",
+        message: "#{current_user.display_name} 已抽出 「#{draw_item.name}」！",
+        icon_url: draw_item.image_url
+      )
     end
     draw_item
   end

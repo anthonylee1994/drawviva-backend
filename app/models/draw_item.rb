@@ -20,4 +20,6 @@
 #
 class DrawItem < ApplicationRecord
   belongs_to :draw
+
+  validates :name, presence: true, allow_blank: false
 end

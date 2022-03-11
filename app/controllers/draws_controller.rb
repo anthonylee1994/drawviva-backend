@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 class DrawsController < ApplicationController
   before_action :set_draw, only: %i[update destroy]
 
   def index
-    @draws = current_user.draws.includes(:user_draws, :draw_items)
+    @draws = current_user.draws.includes(*draw_attributes).order(created_at: :desc)
 
-    render json: @draws, status: :ok
+    render json: @draws, status: :ok, include: draw_attributes
   end
 
   def create
     @draw = current_user.draws.new(draw_params)
 
     if @draw.save
-      render json: @draw, status: :created
+      render json: @draw, status: :created, include: draw_attributes
     else
       render json: @draw.errors, status: :unprocessable_entity
     end
@@ -39,6 +41,10 @@ class DrawsController < ApplicationController
 
   def set_draw
     @draw = Draw.find(params[:id])
+  end
+
+  def draw_attributes
+    [:draw_items, :user_draws, { user_draws: :user }]
   end
 
   def draw_params

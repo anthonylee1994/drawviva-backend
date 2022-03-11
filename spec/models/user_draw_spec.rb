@@ -30,14 +30,14 @@ RSpec.describe UserDraw, type: :model do
     expect(draw.name).to eq 'New Draw'
     expect(draw.users.include?(anthony)).to be_truthy
     expect(draw.admins.include?(anthony)).to be_truthy
-    expect(draw.participants.include?(anthony)).to be_falsy
+    expect(draw.participants.include?(anthony)).to be_falsey
   end
 
   example 'manage participant' do
     draw.add_participant!(ken)
     expect(draw.users.include?(ken)).to be_truthy
     expect(draw.participants.include?(ken)).to be_truthy
-    expect(draw.admins.include?(ken)).to be_falsy
+    expect(draw.admins.include?(ken)).to be_falsey
 
     expect { draw.add_participant!(ken) }.to raise_error(ActiveRecord::RecordInvalid)
     expect { draw.change_role!(user: anthony, role: 'participant') }.to raise_error(ActiveRecord::RecordInvalid)
@@ -48,12 +48,12 @@ RSpec.describe UserDraw, type: :model do
     draw.kick_user!(anthony)
 
     expect(draw.admins.count).to eq 1
-    expect(draw.admins.include?(anthony)).to be_falsy
+    expect(draw.admins.include?(anthony)).to be_falsey
     expect(draw.admins.include?(ken)).to be_truthy
     expect(draw.users.include?(ken)).to be_truthy
 
     draw.kick_user!(ken)
 
-    expect(Draw.exists?(draw.id)).to be_falsy
+    expect(Draw.exists?(draw.id)).to be_falsey
   end
 end

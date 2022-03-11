@@ -6,3 +6,5 @@ firebase:
   api_key: "AIzaSyANyQPEvtsOZcknrnev4gIqCwDuyeyEYVI"
 auth:
   hmac_secret: "6c0bcad267795cbd086c502f2acebb34122ec2c2256daac886583d5ad33dfdb75581efd2d9d36a8c8056dc22ae5709d1f93cc6ef68623d146f39e8281f8ad5d8"
+nacx:
+  base_url: 'https://api.na.cx'

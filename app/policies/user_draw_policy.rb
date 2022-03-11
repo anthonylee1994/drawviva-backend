@@ -3,6 +3,10 @@ class UserDrawPolicy < ApplicationPolicy
     admin?
   end
 
+  def update?
+    admin?
+  end
+
   def destroy?
     admin? || record.user == user
   end
