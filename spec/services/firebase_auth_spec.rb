@@ -14,9 +14,9 @@ RSpec.describe FirebaseAuthService, type: :service do
       )
     ).to(
       eq(
-        email: 'hososlch@gmail.com',
-        display_name: 'Anthony Lee',
-        photo_url: 'https://lh3.googleusercontent.com/a/AATXAJw8AfrjlDZ3mjs7kYjnj8NuJhErXBhKpmPM-lnzgQ=s96-c'
+        email: 'user@example.com',
+        display_name: 'User',
+        photo_url: 'photoUrl'
       )
     )
   end

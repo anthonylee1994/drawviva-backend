@@ -21,8 +21,8 @@
 require 'rails_helper'
 
 RSpec.describe DrawItem, type: :model do
-  let(:anthony) { User.create!(email: 'hososlch@gmail.com', display_name: 'Anthony') }
-  let(:draw) { anthony.draws.create!(name: 'New Draw') }
+  let(:user_one) { User.create!(email: 'user@example.com', display_name: 'User A') }
+  let(:draw) { user_one.draws.create!(name: 'New Draw') }
 
   example 'create draw items' do
     draw_item = draw.draw_items.create!(name: 'New Draw Item')
@@ -34,6 +34,6 @@ RSpec.describe DrawItem, type: :model do
     draw.draw_items.create!(name: 'BBB')
     draw.draw_items.create!(name: 'CCC')
 
-    expect(draw.random_pick!(anthony)).not_to be_nil
+    expect(draw.random_pick!(user_one)).not_to be_nil
   end
 end
