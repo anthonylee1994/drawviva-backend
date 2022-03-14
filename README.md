@@ -7,3 +7,6 @@ rails s
 ```
 Or try this demo:
 https://www.drawviva.com/
+
+
+**WTFPL Licensed.**
