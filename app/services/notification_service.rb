@@ -6,9 +6,9 @@ class NotificationService
       p256dh: subscription.p256dh,
       auth: subscription.auth,
       vapid: {
-        subject: Settings.webpush.subject,
-        public_key: Settings.webpush.public_key,
-        private_key: Settings.webpush.private_key
+        subject: ENV['WEBPUSH_SUBJECT'],
+        public_key: ENV['WEBPUSH_PUBLIC_KEY'],
+        private_key: ENV['WEBPUSH_PRIVATE_KEY']
       },
       ssl_timeout: 5,
       open_timeout: 5,

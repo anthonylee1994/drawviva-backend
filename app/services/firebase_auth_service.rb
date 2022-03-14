@@ -28,7 +28,7 @@ class FirebaseAuthService
     end
 
     response = RestClient.post(
-      "https://www.googleapis.com/identitytoolkit/v3/relyingparty/getAccountInfo?key=#{Settings.firebase.api_key}", 'idToken' => token
+      "https://www.googleapis.com/identitytoolkit/v3/relyingparty/getAccountInfo?key=#{ENV['FIREBASE_API_KEY']}", 'idToken' => token
     )
 
     if response.code == 200

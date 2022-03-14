@@ -52,6 +52,7 @@ gem 'active_model_otp', '~> 2.3'
 gem 'active_model_serializers', '~> 0.10.13'
 gem 'annotate', '~> 3.2'
 gem 'config', '~> 4.0'
+gem 'dotenv-rails', groups: %i[development test]
 gem 'firebase_id_token', '~> 2.4'
 gem 'jwt', '~> 2.3'
 gem 'pry-rails', '~> 0.3.9'
