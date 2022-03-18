@@ -1,4 +1,4 @@
-This is the DrawViva demo project back-end source.
+This is the DrawViva (Web Push) demo project with Rails back-end source.
 
 # Getting Started
 ```
